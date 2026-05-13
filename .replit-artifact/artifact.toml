@@ -1,0 +1,31 @@
+kind = "web"
+previewPath = "/"
+title = "Streamioo"
+version = "1.0.0"
+id = "artifacts/streamioo"
+router = "path"
+
+[[integratedSkills]]
+name = "react-vite"
+version = "1.0.0"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 24363
+
+[services.development]
+run = "pnpm --filter @workspace/streamioo run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/streamioo", "run", "build" ]
+publicDir = "artifacts/streamioo/dist/public"
+serve = "static"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "24363"
+BASE_PATH = "/"
